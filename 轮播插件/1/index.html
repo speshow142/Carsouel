@@ -1,0 +1,528 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+
+<head>
+
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+
+<title>jQuery overScroll插件产品图片叠加旋转动画展示</title>
+
+<meta name="description" content="jquery overScroll插件制作产品图片叠加展示，通过鼠标点击进行产品图片叠加切换，也可以鼠标上下滚动进度图片叠加切换。" />
+
+
+
+<style type="text/css">	
+
+*{margin:0;padding:0;list-style-type:none;}
+
+body{font:12px/180% Arial, Helvetica, sans-serif;}
+
+.demo{width:960px;margin:20px auto 0 auto;}
+
+#shelf{width:900px;height:210px;background:url("images/shelf-bg.png") no-repeat scroll 0 -25px transparent;}
+
+.itemTitle{padding-top:30px;}
+
+
+
+/* container */
+
+#container{width:850px;height:160px;margin-left:25px;}
+
+#container img, #container .item{
+
+	width:100%;height:100%;
+
+	-webkit-border-radius:10px;
+
+	-moz-border-radius:10px;
+
+	-o-border-radius:10px;
+
+	border-radius:10px;
+
+	-moz-box-shadow:0px 5px 5px #777;
+
+	-webkit-box-shadow:0px 5px 5px #777;
+
+	box-shadow:0px 5px 5px #777;
+
+}
+
+#container .selectedItem{
+
+	-moz-box-shadow:0 4px 10px #0071BC;
+
+	-webkit-box-shadow:0 4px 10px #0071BC;
+
+	box-shadow:0 4px 10px #0071BC;
+
+	border:1px solid #0071BC;
+
+}
+
+#container .item{width:160px;height:160px;left:0px;}
+
+
+
+/* container2 */
+
+#container2{width:850px;height:200px;margin-left:25px;}
+
+#container2 img, #container2 .item{
+
+	width:100%;height:100%;
+
+	-webkit-border-radius:10px;
+
+	-moz-border-radius:10px;
+
+	-o-border-radius:10px;
+
+	border-radius:10px;
+
+	-moz-box-shadow:0px 5px 5px #777;
+
+	-webkit-box-shadow:0px 5px 5px #777;
+
+	box-shadow:0px 5px 5px #777;
+
+}
+
+
+
+/* similarity */		
+
+.similarity{bottom:5%;position:absolute;right:5%;font-size:2.5em;*font-size:1.3em;width:1.5em;height:1.5em;line-height:1.5em;text-align:center;}
+
+.similarity{
+
+	-moz-border-radius:5px;
+
+	-webkit-border-radius:5px;
+
+	border-radius:5px;
+
+	background:#84C440;
+
+	background:-moz-linear-gradient(top, #84C440 0%, #3CB64A 100%);
+
+	background:-webkit-gradient(linear, left top, left bottom, color-stop(0%,#84C440), color-stop(100%,#3CB64A));
+
+	-webkit-box-shadow:inset 0px 1px 0px #a1d269;
+
+	-moz-box-shadow:inset 0px 1px 0px #a1d269;
+
+	box-shadow:inset 0px 1px 0px #a1d269;
+
+	text-shadow:0 1px 1px rgba(0, 0, 0, 0.5);
+
+	
+
+	border-color:#8cc63f #6dc043 #359541 #6dc043;border-width:1px;border-style:solid;color:#fff;float:left;font-size:14px;font-weight:bold;padding:3px 6px;
+
+}
+
+.similarity:hover{
+
+	background:#bbde51;border-color:#bbde51 #bbde51 #9eba45 #bbde51;cursor:pointer;
+
+	-webkit-box-shadow:inset 0px 1px 0px #cde671;
+
+	-moz-box-shadow:inset 0px 1px 0px #cde671;
+
+	box-shadow:inset 0px 1px 0px #cde671;
+
+}
+
+</style>
+
+<script type="text/javascript" src="jquery.js"></script>
+<script type="text/javascript" src="jquery.coverscroll.min.js"></script>
+
+</head>
+
+
+
+<body>
+
+
+
+<div class="demo">
+
+	<h1>jQuery overScroll插件</h1>by <strong>Slobodan Jovanovic</strong>
+
+	<p>这是一个CSS3的苹果的CoverFlow的设计模式的变体</p>
+
+<div id="shelf" style="background-position:0 0;">
+
+		<div id="container2">
+
+			<img title="title #1" src="images/1.jpg" />
+
+			<img title="title #2" src="images/2.jpg" />
+
+			<img title="title #3" src="images/3.jpg" />
+
+			<img title="title #4" src="images/4.jpg" />
+
+			<img title="title #5" src="images/5.jpg" />
+
+			<img title="title #6" src="images/6.jpg" />
+
+			<img title="title #7" src="images/7.jpg" />
+
+			<img title="title #1" src="images/1.jpg" />
+
+			<img title="title #2" src="images/2.jpg" />
+
+			<img title="title #3" src="images/3.jpg" />
+
+			<img title="title #4" src="images/4.jpg" />
+
+		</div>
+
+	</div>
+
+	<script type="text/javascript">
+
+	$(function(){
+
+		$('#container2').coverscroll();
+
+	});
+
+	</script>
+
+
+	<h3>用法</h3>
+
+	<ol>
+
+		<li>
+
+			<h4>HTML</h4>
+
+<pre>
+
+&lt;div id="container"&gt;
+
+	&lt;img src="img1.jpg" /&gt;
+
+	&lt;img src="img2.jpg" /&gt;
+
+	&lt;img src="img3.jpg" /&gt;
+
+	&lt;img src="img4.jpg" /&gt;
+
+&lt;/div&gt;
+
+</pre>
+
+		</li>
+
+		<li>
+
+			<h4>JavaScript</h4>
+
+			<pre>
+
+$('#container').coverscroll();
+
+			</pre>
+
+			<strong>OR</strong>
+
+			<pre>
+
+$('#container').coverscroll({items:'img'});
+
+			</pre>
+
+		</li>
+
+	</ol>
+
+	<h3>选项</h3>
+
+	<p>这是默认的选项：</p>
+
+	<pre>
+
+var opt = {
+
+	'minfactor':20, // 下一个项目是多少比以前的以像素为单位
+
+	'distribution':1.5, // 如何分开的项目（项目走散当该值低于1）
+
+	'scalethreshold':0, // 多少个项目后，开始缩放
+
+	'staticbelowthreshold':false, // 如果为true时，件数下面的“scalethreshold”， - 不动画
+
+	'titleclass':'itemTitle', // 类名的元素包含的项目标题
+
+	'selectedclass':'selectedItem', // 所选项目的类名
+
+	'scrollactive':true, // 滚动功能开关
+
+	'step':{ // 压缩步骤
+
+	'limit':4, // 多少步上应显示的每一侧
+
+	'width':8, // 工序（以像素为单位）的可见部分有多宽
+
+	'scale':true // 缩减步骤
+
+	},
+
+	'bendamount':2, // “弯曲”的CoverScroll（值0.1至1弯下腰，-0.1至-1弯，2的量是直（没有弯曲），1.5 sligtly弯下腰）
+
+	'movecallback':function(item){} // 回调函数触发后单击一个项目 - 参数是该项目的jQuery对象
+
+};
+
+	</pre>
+
+	<h3>方法</h3>
+
+	<p>这是一种支持的方法列表:</p>
+
+	<ol>
+
+		<li>
+
+			<strong>next</strong> - 移动到下一个项目<br/>
+
+			<pre>
+
+$('#container').coverscroll('next');
+
+			</pre>
+
+		</li>
+
+		<li>
+
+			<strong>prev</strong> - 移动到上一个项目<br/>
+
+			<pre>
+
+$('#container').coverscroll('prev');
+
+			</pre>
+
+		</li>
+
+	</ol>
+
+	<h3>实例</h3>
+
+	<pre>
+
+$('#container').coverscroll();
+
+	</pre>
+
+	
+
+
+
+	<br/><br/><br/><br/>
+
+
+
+	<h3>更复杂的例子（shelf）</h3>
+
+	<h4>HTML</h4>
+
+	<pre>
+
+&lt;div id="shelf"&gt;
+
+	&lt;div id="container"&gt;
+
+		&lt;div class="item"&gt;
+
+			&lt;img style="width:100%,height:100%" src="image.jpg" /&gt;
+
+			&lt;div class="itemTitle"&gt;the title 1&lt;/div&gt;
+
+		&lt;/div&gt;
+
+		&lt;!--其他项目--&gt;
+
+	&lt;/div&gt;
+
+&lt;/div&gt;
+
+	</pre>
+
+	<h4>JavaScript</h4>
+
+	<pre>
+
+$('#container').coverscroll({
+
+	items:'.item', 
+
+	minfactor:10, 
+
+	scalethreshold:5, 
+
+	staticbelowthreshold:true, 
+
+	distribution:1, 
+
+	bendamount:1.5, 
+
+	movecallback:getStatus
+
+});
+
+	</pre>
+
+	<div id="shelf">
+
+		<div id="container">
+
+			<div class="item">
+
+				<img src="images/1.jpg" />
+
+				<div class="similarity">05</div>
+
+				<div class="itemTitle">the title 1</div>
+
+			</div>
+
+		</div>
+
+	</div><!--shelf end-->
+
+	<script type="text/javascript">
+
+	$(function(){
+
+		$('#container').coverscroll({
+
+			items:'.item',
+
+			minfactor:10,
+
+			scalethreshold:5,
+
+			staticbelowthreshold:true,
+
+			distribution:1
+
+		});
+
+	});
+
+	// 演示，动态地添加项目的CoverScroll
+
+	var cnt = 0;
+
+	var aitems = [
+
+		'<div class="item"><img  src="images/2.jpg" /><div class="similarity">05</div><div class="itemTitle">the title 2</div></div>',
+
+		'<div class="item"><img  src="images/3.jpg" /><div class="similarity">05</div><div class="itemTitle">the title 3</div></div>',
+
+		'<div class="item"><img  src="images/4.jpg" /><div class="similarity">05</div><div class="itemTitle">the title 4</div></div>',
+
+		'<div class="item"><img  src="images/5.jpg" /><div class="similarity">05</div><div class="itemTitle">the title 5</div></div>',
+
+		'<div class="item"><img  src="images/6.jpg" /><div class="similarity">05</div><div class="itemTitle">the title 6</div></div>',
+
+		'<div class="item"><img  src="images/7.jpg" /><div class="similarity">05</div><div class="itemTitle">the title 7</div></div>',
+
+		'<div class="item"><img " src="images/1.jpg" /><div class="similarity">05</div><div class="itemTitle">the title 8</div></div>',
+
+		'<div class="item"><img " src="images/2.jpg" /><div class="similarity">05</div><div class="itemTitle">the title 9</div></div>',
+
+		'<div class="item"><img " src="images/3.jpg" /><div class="similarity">05</div><div class="itemTitle">the title 10</div></div>',
+
+		'<div class="item"><img " src="images/4.jpg" /><div class="similarity">05</div><div class="itemTitle">the title 11</div></div>',
+
+		'<div class="item"><img " src="images/5.jpg" /><div class="similarity">05</div><div class="itemTitle">the title 12</div></div>',
+
+		'<div class="item"><img " src="images/6.jpg" /><div class="similarity">05</div><div class="itemTitle">the title 13</div></div>',
+
+		'<div class="item"><img " src="images/7.jpg" /><div class="similarity">05</div><div class="itemTitle">the title 14</div></div>'
+
+	];
+
+	function addItem(){
+
+		$('#container').append(aitems[cnt]);
+
+		$('#container').coverscroll({
+
+			items:'.item',
+
+			minfactor:10,
+
+			scalethreshold:5,
+
+			staticbelowthreshold:true,
+
+			distribution:1,
+
+			bendamount:1.5,
+
+			movecallback:getStatus
+
+		});
+
+		cnt++;
+
+		if(cnt >= aitems.length){
+
+			cnt=0
+
+		}
+
+	}
+
+	
+
+	function getStatus(){
+
+		var stats = ($('#container .selectedItem').index()+1)+' of '+$('#container .item').length;
+
+		$('#stats').html(stats);
+
+	}
+
+	</script>
+
+
+
+	<p style="text-align:center;width:900px;">
+
+		<a onClick="$('#container').coverscroll('prev')" href="javascript:;">上一个</a>
+
+		&nbsp;<span id="stats"></span>&nbsp;
+
+		<a onClick="$('#container').coverscroll('next')" href="javascript:;">下一个</a>
+
+		<br/><br/>
+
+		<button onClick="addItem()">Add Item</button>	
+
+	</p>
+
+	
+
+	<p style="text-align:center;width:900px;">添加项目展示了如何overScroll不同的行为时，有超过5项中的“.</p>
+
+	
+
+</div>
+
+
+
+</body>
+</html>
